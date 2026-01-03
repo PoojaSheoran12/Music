@@ -25,8 +25,23 @@ fun HomeRoute(
         viewModel.loadTracks()
     }
 
+//    HomeScreen(
+//        uiState = uiState,
+//        onSortByName = viewModel::sortByName,
+//        onSortByDuration = viewModel::sortByDuration,
+//        onTrackSelected = { track ->
+//            navController.navigate(
+//                Route.Audio.create(
+//                    track.id,
+//                    track.audioUrl
+//                )
+//            )
+//        },
+//
+//    )
     HomeScreen(
         uiState = uiState,
+        playerState = playerState,
         onSortByName = viewModel::sortByName,
         onSortByDuration = viewModel::sortByDuration,
         onTrackSelected = { track ->
@@ -36,12 +51,10 @@ fun HomeRoute(
                     track.audioUrl
                 )
             )
-        }
-    )
-
-    MiniPlayer(
-        state = playerState,
-        onPlayPause = audioViewModel::togglePlayPause,
+        },
+        onPlayPause = {
+            audioViewModel.togglePlayPause()
+        },
         onOpenPlayer = {
             navController.navigate(
                 Route.Audio.create(
@@ -51,4 +64,6 @@ fun HomeRoute(
             )
         }
     )
+
+
 }
