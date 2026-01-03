@@ -1,34 +1,25 @@
 package com.user.music.ui.home
 
-import com.user.music.data.repository.HomeRepository
-import com.user.music.domain.Track
+
+import com.user.music.domain.model.Track
+import com.user.music.domain.repository.HomeRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.io.IOException
-import kotlinx.serialization.SerializationException
-
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-enum class SortMode {
-    NONE,
-    NAME,
-    DURATION
-}
+
 
 class HomeViewModel(
     private val repository: HomeRepository,
     private val scope: CoroutineScope
 ) {
 
-    // Sorting mode
     private val sortMode =
-        MutableStateFlow<SortMode>(SortMode.NONE)
+        MutableStateFlow(SortMode.NONE)
 
-    // Tracks coming from DB
+
     val tracks: StateFlow<List<Track>> =
         combine(
             repository.observeTracks(),
@@ -48,7 +39,6 @@ class HomeViewModel(
         )
 
     init {
-        // Initial page load
         scope.launch {
             repository.loadNextPage()
         }

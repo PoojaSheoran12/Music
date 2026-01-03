@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.user.music.player.PlayerState
-import com.user.music.domain.Track
+import com.user.music.domain.model.Track
 import com.user.music.ui.components.MiniPlayer
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,7 +22,8 @@ fun HomeScreen(
     onTrackSelected: (Track) -> Unit,
     onPlayPause: () -> Unit,
     onOpenPlayer: () -> Unit,
-    trackImage: @Composable (Track) -> Unit
+    trackImage: @Composable (Track) -> Unit,
+    miniPlayerArtwork: @Composable () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -34,7 +35,8 @@ fun HomeScreen(
             MiniPlayer(
                 state = playerState,
                 onPlayPause = onPlayPause,
-                onOpenPlayer = onOpenPlayer
+                onOpenPlayer = onOpenPlayer,
+                artwork = { miniPlayerArtwork() }
             )
         }
     ) { padding ->
@@ -45,7 +47,6 @@ fun HomeScreen(
                 .fillMaxSize()
         ) {
 
-            // 🔹 Initial loading (DB empty)
             if (isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center)
@@ -65,7 +66,7 @@ fun HomeScreen(
                         start = 12.dp,
                         end = 12.dp,
                         top = 12.dp,
-                        bottom = 72.dp // space for MiniPlayer
+                        bottom = 72.dp
                     ),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
@@ -77,7 +78,6 @@ fun HomeScreen(
                         )
                     }
 
-                    // 🔹 Paging trigger
                     item {
                         LaunchedEffect(Unit) {
                             onLoadMore()

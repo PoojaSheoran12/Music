@@ -1,6 +1,6 @@
 package com.user.music.data.mapper
 
-import com.user.music.domain.Track
+import com.user.music.domain.model.Track
 import com.user.music.database.Tracks
 
 

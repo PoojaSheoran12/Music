@@ -1,5 +1,4 @@
-package com.user.music.domain
-
+package com.user.music.domain.model
 
 data class Track(
     val id: String,
@@ -9,5 +8,3 @@ data class Track(
     val audioUrl: String,
     val imageUrl: String?
 )
-
-
