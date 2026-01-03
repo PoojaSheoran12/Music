@@ -1,33 +1,63 @@
 package com.user.music.ui.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
- fun SortSection(
+fun SortSection(
+    selected: SortMode,
     onSortByName: () -> Unit,
     onSortByDuration: () -> Unit
 ) {
     Row(
         modifier = Modifier
-            .padding(horizontal = 12.dp, vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(horizontal = 16.dp, vertical = 10.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        FilterChip(
-            selected = false,
-            onClick = onSortByName,
-            label = { Text("A–Z") }
+
+        SortChip(
+            text = "A–Z",
+            selected = selected == SortMode.NAME,
+            onClick = onSortByName
         )
-        FilterChip(
-            selected = false,
-            onClick = onSortByDuration,
-            label = { Text("Duration") }
+
+        SortChip(
+            text = "Duration",
+            selected = selected == SortMode.DURATION,
+            onClick = onSortByDuration
+        )
+    }
+}
+
+@Composable
+private fun SortChip(
+    text: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    Surface(
+        shape = RoundedCornerShape(50),
+        color =
+            if (selected) Color.White.copy(alpha = 0.15f)
+            else Color.White.copy(alpha = 0.05f),
+        modifier = Modifier.clickable(onClick = onClick)
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            color = Color.White,
+            style = MaterialTheme.typography.labelMedium
         )
     }
 }

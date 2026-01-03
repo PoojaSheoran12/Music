@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
+import com.user.music.ui.components.PlayerErrorOverlay
 
 
 @Composable
@@ -39,6 +39,7 @@ fun AudioScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
+
         artwork()
         DarkOverlay()
 
@@ -49,7 +50,9 @@ fun AudioScreen(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
             TrackInfo(playerState)
+
             PlayerControls(
                 playerState = playerState,
                 sliderPosition = sliderPosition,
@@ -67,8 +70,13 @@ fun AudioScreen(
                 onPrevious = onPrevious
             )
         }
+
+        playerState.error?.let { message ->
+            PlayerErrorOverlay(message)
+        }
     }
 }
+
 @Composable
 fun DarkOverlay() {
     Box(

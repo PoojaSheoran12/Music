@@ -1,20 +1,27 @@
 package com.user.music.ui.home
 
+import androidx.compose.foundation.background
 import androidx.compose.runtime.*
 import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.user.music.player.PlayerState
 import com.user.music.domain.model.Track
+import com.user.music.ui.components.ErrorState
+import com.user.music.ui.components.HomeHeader
+import com.user.music.ui.components.LoadingState
 import com.user.music.ui.components.MiniPlayer
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun HomeScreen(
     tracks: List<Track>,
-    isLoading: Boolean,
+    uiState: HomeUiState,
     playerState: PlayerState,
     onSortByName: () -> Unit,
     onSortByDuration: () -> Unit,
@@ -25,64 +32,112 @@ fun HomeScreen(
     trackImage: @Composable (Track) -> Unit,
     miniPlayerArtwork: @Composable () -> Unit
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Music Library") }
-            )
-        },
-        bottomBar = {
-            MiniPlayer(
-                state = playerState,
-                onPlayPause = onPlayPause,
-                onOpenPlayer = onOpenPlayer,
-                artwork = { miniPlayerArtwork() }
-            )
-        }
-    ) { padding ->
-
-        Box(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-        ) {
-
-            if (isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF0B0B10),
+                        Color(0xFF141420),
+                        Color(0xFF0F0F14)
+                    )
                 )
-                return@Box
-            }
+            )
+    ) {
 
-            Column {
+        Column {
 
-                SortSection(
-                    onSortByName = onSortByName,
-                    onSortByDuration = onSortByDuration
-                )
 
-                LazyColumn(
-                    contentPadding = PaddingValues(
-                        start = 12.dp,
-                        end = 12.dp,
-                        top = 12.dp,
-                        bottom = 72.dp
-                    ),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(tracks) { track ->
-                        TrackItem(
-                            track = track,
-                            onClick = { onTrackSelected(track) },
-                            image = { trackImage(track) }
+            HomeHeader()
+
+            when (uiState) {
+
+                HomeUiState.Loading -> {
+                    LoadingState()
+                }
+
+                is HomeUiState.Error -> {
+                    ErrorState(
+                        message = uiState.message,
+                        onRetry = onLoadMore
+                    )
+                }
+
+                HomeUiState.Idle -> {
+
+
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        color = Color.White.copy(alpha = 0.06f)
+                    ) {
+                        SortSection(
+                            selected = SortMode.NONE,
+                            onSortByName = onSortByName,
+                            onSortByDuration = onSortByDuration
                         )
                     }
 
-                    item {
-                        LaunchedEffect(Unit) {
-                            onLoadMore()
+                    Spacer(Modifier.height(12.dp))
+
+
+                    Text(
+                        text = "All Tracks",
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            bottom = 8.dp
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Color.White.copy(alpha = 0.7f)
+                    )
+
+
+                    LazyColumn(
+                        contentPadding = PaddingValues(
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 120.dp
+                        ),
+                        verticalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
+                        items(tracks) { track ->
+                            TrackItem(
+                                track = track,
+                                onClick = { onTrackSelected(track) },
+                                image = { trackImage(track) }
+                            )
+                        }
+
+                        item {
+                            LaunchedEffect(Unit) {
+                                onLoadMore()
+                            }
                         }
                     }
+                }
+            }
+        }
+
+        if (playerState.currentTrackId != null) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp)
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(20.dp),
+                    color = Color.White.copy(alpha = 0.08f),
+                    shadowElevation = 12.dp
+                ) {
+                    MiniPlayer(
+                        state = playerState,
+                        onPlayPause = onPlayPause,
+                        onOpenPlayer = onOpenPlayer,
+                        artwork = miniPlayerArtwork
+                    )
                 }
             }
         }

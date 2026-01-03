@@ -6,9 +6,8 @@ enum class SortMode {
     NAME,
     DURATION
 }
-data class HomeUiState(
-    val isInitialLoading: Boolean = false,
-    val isRefreshing: Boolean = false,
-    val isLoadingMore: Boolean = false,
-    val errorMessage: String? = null
-)
+sealed interface HomeUiState {
+    object Loading : HomeUiState
+    object Idle : HomeUiState          // data shown, not loading
+    data class Error(val message: String) : HomeUiState
+}

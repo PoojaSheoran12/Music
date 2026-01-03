@@ -33,7 +33,7 @@ fun HomeRoute(
 
     HomeScreen(
         tracks = tracks,
-        isLoading = tracks.isEmpty(),
+        uiState = viewModel.uiState.collectAsState().value,
         playerState = playerState,
         onSortByName = viewModel::sortByName,
         onSortByDuration = viewModel::sortByDuration,
@@ -67,6 +67,6 @@ fun HomeRoute(
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-        }
+        },
     )
 }
