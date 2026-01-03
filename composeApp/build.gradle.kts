@@ -33,6 +33,14 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.androidx.navigation.compose)
+            implementation(libs.androidx.core.ktx)
+            implementation(libs.coil.compose)
+            implementation(libs.koin.androidx.compose) // ✅ THIS ONE
+            // androidMain dependencies
+            //implementation(libs.koin.compose)
+
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -52,6 +60,13 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.serialization.json)
             implementation(libs.ktor.client.logging)
+
+
+
+            implementation(libs.compose.icons.extended)
+
+
+
 
         }
         commonTest.dependencies {

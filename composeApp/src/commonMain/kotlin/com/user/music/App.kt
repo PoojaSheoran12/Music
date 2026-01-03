@@ -24,6 +24,6 @@ import music.composeapp.generated.resources.compose_multiplatform
 @Preview
 fun App() {
     MaterialTheme {
-        HomeScreen()
+
     }
 }
