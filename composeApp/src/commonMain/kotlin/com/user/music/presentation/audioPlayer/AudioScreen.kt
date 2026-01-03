@@ -1,4 +1,4 @@
-package com.user.music.player
+package com.user.music.presentation.audioPlayer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.user.music.ui.components.PlayerErrorOverlay
+import com.user.music.player.PlayerState
+import com.user.music.presentation.components.PlayerErrorOverlay
 
 
 @Composable

@@ -6,10 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.user.music.player.PlayerViewModel
-import com.user.music.ui.AudioRoute
-import com.user.music.ui.HomeRoute
-import com.user.music.ui.home.HomeViewModel
+import com.user.music.presentation.audioPlayer.PlayerViewModel
+import com.user.music.presentation.AudioRoute
+import com.user.music.presentation.HomeRoute
+import com.user.music.presentation.home.HomeViewModel
 
 @Composable
 fun AppNavGraph(

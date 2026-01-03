@@ -1,6 +1,6 @@
 package com.user.music.di
 
-import com.user.music.player.PlayerViewModel
+import com.user.music.presentation.audioPlayer.PlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

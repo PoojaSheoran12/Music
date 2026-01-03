@@ -1,4 +1,4 @@
-package com.user.music.ui.home
+package com.user.music.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.runtime.*
@@ -13,10 +13,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.user.music.player.PlayerState
 import com.user.music.domain.model.Track
-import com.user.music.ui.components.ErrorState
-import com.user.music.ui.components.HomeHeader
-import com.user.music.ui.components.LoadingState
-import com.user.music.ui.components.MiniPlayer
+import com.user.music.presentation.components.ErrorState
+import com.user.music.presentation.components.HomeHeader
+import com.user.music.presentation.components.LoadingState
+import com.user.music.presentation.components.MiniPlayer
 
 @Composable
 fun HomeScreen(

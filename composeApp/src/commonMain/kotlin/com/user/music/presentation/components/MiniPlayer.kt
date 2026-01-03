@@ -1,4 +1,4 @@
-package com.user.music.ui.components
+package com.user.music.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

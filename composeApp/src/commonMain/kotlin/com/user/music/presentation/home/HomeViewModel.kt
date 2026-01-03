@@ -1,4 +1,4 @@
-package com.user.music.ui.home
+package com.user.music.presentation.home
 
 
 import com.user.music.domain.model.Track

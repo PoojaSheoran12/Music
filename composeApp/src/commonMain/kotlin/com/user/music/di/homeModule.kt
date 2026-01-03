@@ -3,11 +3,7 @@ package com.user.music.di
 
 import com.user.music.data.repository.HomeRepositoryImpl
 import com.user.music.domain.repository.HomeRepository
-import com.user.music.ui.home.HomeViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable.get
-import kotlinx.coroutines.SupervisorJob
+import com.user.music.presentation.home.HomeViewModel
 import org.koin.dsl.module
 
 

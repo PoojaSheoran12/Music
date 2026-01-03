@@ -1,4 +1,4 @@
-package com.user.music.player
+package com.user.music.presentation.audioPlayer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.user.music.player.PlayerState
 import com.user.music.util.formatTime
 
 @Composable

@@ -1,6 +1,7 @@
-package com.user.music.player
+package com.user.music.presentation.audioPlayer
 
 import com.user.music.domain.model.Track
+import com.user.music.player.AudioPlayer
 import com.user.music.player.PlayerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.user.music.ui
+package com.user.music.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -9,11 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.user.music.player.PlayerViewModel
+import com.user.music.presentation.audioPlayer.PlayerViewModel
 import com.user.music.navigation.Route
-import com.user.music.ui.home.HomeScreen
+import com.user.music.presentation.home.HomeScreen
 
-import com.user.music.ui.home.HomeViewModel
+import com.user.music.presentation.home.HomeViewModel
 
 @Composable
 fun HomeRoute(

@@ -1,4 +1,4 @@
-package com.user.music.ui
+package com.user.music.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -8,9 +8,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
-import com.user.music.player.AudioScreen
+import com.user.music.presentation.audioPlayer.AudioScreen
 import com.user.music.player.PlayerState
-import com.user.music.player.PlayerViewModel
+import com.user.music.presentation.audioPlayer.PlayerViewModel
 
 
 @Composable
