@@ -21,10 +21,12 @@ fun AudioRoute(
     LaunchedEffect(trackId) {
         viewModel.playTrack(trackId, audioUrl)
     }
-
+ 
     AudioScreen(
         playerState = playerState,
         onPlayPause = viewModel::togglePlayPause,
-        onSeek = viewModel::seekTo
+        onSeek = viewModel::seekTo,
+        onNext = viewModel::playNext,
+        onPrevious = viewModel::playPrevious
     )
 }

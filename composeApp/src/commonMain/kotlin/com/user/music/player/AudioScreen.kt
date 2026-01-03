@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,7 +36,9 @@ import com.user.music.util.formatTime
 fun AudioScreen(
     playerState: PlayerState,
     onPlayPause: () -> Unit,
-    onSeek: (Long) -> Unit
+    onSeek: (Long) -> Unit,
+    onNext: () -> Unit,
+    onPrevious: () -> Unit
 ) {
     var sliderPosition by remember { mutableStateOf(0f) }
     var isUserSeeking by remember { mutableStateOf(false) }
@@ -44,6 +49,7 @@ fun AudioScreen(
             sliderPosition = playerState.currentPosition.toFloat()
         }
     }
+
 
     Column(
         modifier = Modifier
@@ -93,6 +99,27 @@ fun AudioScreen(
                     Icons.Default.PlayArrow,
                 contentDescription = null,
                 modifier = Modifier.size(64.dp)
+            )
+        }
+
+
+        Spacer(Modifier.width(16.dp))
+
+        IconButton(onClick = onNext) {
+            Icon(
+                imageVector = Icons.Default.SkipNext,
+                contentDescription = "Next",
+                modifier = Modifier.size(48.dp)
+            )
+        }
+
+        Spacer(Modifier.width(16.dp))
+
+        IconButton(onClick = onPrevious) {
+            Icon(
+                imageVector = Icons.Default.SkipPrevious,
+                contentDescription = "Next",
+                modifier = Modifier.size(48.dp)
             )
         }
     }

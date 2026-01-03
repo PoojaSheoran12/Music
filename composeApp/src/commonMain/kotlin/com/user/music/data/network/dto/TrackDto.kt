@@ -9,5 +9,6 @@ data class TrackDto(
     val duration: Int,
     val artist_name: String,
     val audio: String,
-    val image: String?
+    val image: String?,
+    val album_image: String?
 )

@@ -27,7 +27,8 @@ import com.user.music.domain.Track
 @Composable
  fun TrackItem(
     track: Track,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    image: @Composable () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -47,10 +48,7 @@ import com.user.music.domain.Track
                     .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(
-                    imageVector = Icons.Default.MusicNote,
-                    contentDescription = null
-                )
+                image()
             }
 
             Spacer(Modifier.width(12.dp))

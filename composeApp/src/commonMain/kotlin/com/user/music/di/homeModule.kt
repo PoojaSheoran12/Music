@@ -14,7 +14,10 @@ val homeModule = module {
 
     factory { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
 
-    single<HomeRepository> { HomeRepositoryImpl(get()) }
+    single<HomeRepository> { HomeRepositoryImpl(
+        get(),
+        database = get()
+    ) }
 
     factory {
         HomeViewModel(

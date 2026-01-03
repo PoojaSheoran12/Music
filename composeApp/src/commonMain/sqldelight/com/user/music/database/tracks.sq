@@ -1,0 +1,20 @@
+CREATE TABLE tracks (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    artist TEXT NOT NULL,
+    duration INTEGER NOT NULL,
+    imageUrl TEXT,
+    audioUrl TEXT NOT NULL
+);
+
+selectAll:
+SELECT * FROM tracks;
+
+insertTrack:
+INSERT OR REPLACE INTO tracks(
+    id, title, artist, duration, imageUrl, audioUrl
+)
+VALUES (?, ?, ?, ?, ?, ?);
+
+clearAll:
+DELETE FROM tracks;

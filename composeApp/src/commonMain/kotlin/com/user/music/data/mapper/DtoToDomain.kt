@@ -11,6 +11,6 @@ fun TrackDto.toDomain(): Track {
         artist = artist_name,
         durationSec = duration,
         audioUrl = audio,
-        imageUrl = image
+        imageUrl = image ?: album_image ?: ""
     )
 }

@@ -11,7 +11,7 @@ fun initKoinAndroid(
 ) {
     startKoin {
         androidContext(application)
-        modules(commonModules + audioAndroidModule);
+        modules(commonModules + audioAndroidModule+androidDatabaseModule);
 
     }
 }

@@ -11,44 +11,71 @@ import kotlinx.coroutines.launch
 import kotlinx.io.IOException
 import kotlinx.serialization.SerializationException
 
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+enum class SortMode {
+    NONE,
+    NAME,
+    DURATION
+}
+
 class HomeViewModel(
     private val repository: HomeRepository,
     private val scope: CoroutineScope
 ) {
 
-    private val _uiState =
-        MutableStateFlow<HomeUiState<List<Track>>>(HomeUiState.Loading)
-    val uiState: StateFlow<HomeUiState<List<Track>>> = _uiState.asStateFlow()
+    // Sorting mode
+    private val sortMode =
+        MutableStateFlow<SortMode>(SortMode.NONE)
 
-    private var cachedTracks: List<Track> = emptyList()
-
-    fun loadTracks() {
-        scope.launch {
-            _uiState.value = HomeUiState.Loading
-            try {
-                cachedTracks = repository.getTracks()
-                _uiState.value = HomeUiState.Success(cachedTracks)
-            } catch (e: IOException) {
-                _uiState.value = HomeUiState.Error("No internet connection")
-            } catch (e: SerializationException) {
-                _uiState.value = HomeUiState.Error("Invalid server response")
-            } catch (e: Exception) {
-                _uiState.value = HomeUiState.Error("Something went wrong")
+    // Tracks coming from DB
+    val tracks: StateFlow<List<Track>> =
+        combine(
+            repository.observeTracks(),
+            sortMode
+        ) { tracks, mode ->
+            when (mode) {
+                SortMode.NONE -> tracks
+                SortMode.NAME ->
+                    tracks.sortedBy { it.title.lowercase() }
+                SortMode.DURATION ->
+                    tracks.sortedBy { it.durationSec }
             }
+        }.stateIn(
+            scope = scope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
+        )
+
+    init {
+        // Initial page load
+        scope.launch {
+            repository.loadNextPage()
         }
     }
-    fun play(track: Track){
 
+    fun loadMore() {
+        scope.launch {
+            repository.loadNextPage()
+        }
+    }
+
+    fun refresh() {
+        scope.launch {
+            repository.refresh()
+        }
     }
 
     fun sortByName() {
-        _uiState.value =
-            HomeUiState.Success(cachedTracks.sortedBy { it.title.lowercase() })
+        sortMode.value = SortMode.NAME
     }
 
     fun sortByDuration() {
-        _uiState.value =
-            HomeUiState.Success(cachedTracks.sortedBy { it.durationSec })
+        sortMode.value = SortMode.DURATION
+    }
+
+    fun clearSort() {
+        sortMode.value = SortMode.NONE
     }
 
     fun clear() {

@@ -7,7 +7,9 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.sqldelight)
 }
+
 
 kotlin {
     androidTarget {
@@ -36,9 +38,9 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
             implementation(libs.androidx.core.ktx)
             implementation(libs.coil.compose)
-            implementation(libs.koin.androidx.compose) // ✅ THIS ONE
-            // androidMain dependencies
-            //implementation(libs.koin.compose)
+            implementation(libs.koin.androidx.compose)
+            implementation(libs.sqldelight.android)
+
 
 
         }
@@ -56,18 +58,12 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.ktor.client.core)
-
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.serialization.json)
             implementation(libs.ktor.client.logging)
-
-
-
             implementation(libs.compose.icons.extended)
-
-
-
-
+            implementation(libs.sqldelight.coroutines)
+            implementation(libs.sqldelight.runtime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -101,6 +97,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
+
+sqldelight {
+    databases {
+        create("MusicDatabase") {
+            packageName.set("com.user.music.database")
+        }
+    }
+}
+
+
 
 dependencies {
     debugImplementation(compose.uiTooling)

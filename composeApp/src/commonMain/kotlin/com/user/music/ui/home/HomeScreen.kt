@@ -10,17 +10,19 @@ import androidx.compose.ui.unit.dp
 import com.user.music.player.PlayerState
 import com.user.music.domain.Track
 import com.user.music.ui.components.MiniPlayer
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    uiState: HomeUiState<List<Track>>,
+    tracks: List<Track>,
+    isLoading: Boolean,
     playerState: PlayerState,
     onSortByName: () -> Unit,
     onSortByDuration: () -> Unit,
+    onLoadMore: () -> Unit,
     onTrackSelected: (Track) -> Unit,
     onPlayPause: () -> Unit,
-    onOpenPlayer: () -> Unit
+    onOpenPlayer: () -> Unit,
+    trackImage: @Composable (Track) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -42,45 +44,43 @@ fun HomeScreen(
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            when (uiState) {
 
-                is HomeUiState.Loading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-                }
+            // 🔹 Initial loading (DB empty)
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
+                )
+                return@Box
+            }
 
-                is HomeUiState.Error -> {
-                    Text(
-                        text = uiState.message,
-                        modifier = Modifier.align(Alignment.Center),
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
+            Column {
 
-                is HomeUiState.Success -> {
-                    Column {
+                SortSection(
+                    onSortByName = onSortByName,
+                    onSortByDuration = onSortByDuration
+                )
 
-                        SortSection(
-                            onSortByName = onSortByName,
-                            onSortByDuration = onSortByDuration
+                LazyColumn(
+                    contentPadding = PaddingValues(
+                        start = 12.dp,
+                        end = 12.dp,
+                        top = 12.dp,
+                        bottom = 72.dp // space for MiniPlayer
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(tracks) { track ->
+                        TrackItem(
+                            track = track,
+                            onClick = { onTrackSelected(track) },
+                            image = { trackImage(track) }
                         )
+                    }
 
-                        LazyColumn(
-                            contentPadding = PaddingValues(
-                                start = 12.dp,
-                                end = 12.dp,
-                                top = 12.dp,
-                                bottom = 72.dp // 🔑 space for MiniPlayer
-                            ),
-                            verticalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            items(uiState.data) { track ->
-                                TrackItem(
-                                    track = track,
-                                    onClick = { onTrackSelected(track) }
-                                )
-                            }
+                    // 🔹 Paging trigger
+                    item {
+                        LaunchedEffect(Unit) {
+                            onLoadMore()
                         }
                     }
                 }
@@ -88,6 +88,3 @@ fun HomeScreen(
         }
     }
 }
-
-
-
