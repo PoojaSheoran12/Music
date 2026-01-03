@@ -1,35 +1,143 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+# 🎵 Music Player App (Kotlin Multiplatform)
 
-### Build and Run Android Application
-
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
-
-### Build and Run iOS Application
-
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+A music player application built using **Kotlin Multiplatform (KMP)** and **Compose Multiplatform**, showcasing Android fundamentals, clean architecture, offline support, and media playback.
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## 🚀 Key Features
+
+* Fetches music tracks from a remote API (Jamendo)
+* Displays track list with:
+
+  * Title
+  * Artist
+  * Duration
+  * Album artwork
+* Pagination with **10 tracks per request**
+* Loading and error states handled gracefully
+* Sorting options:
+
+  * Name (A–Z)
+  * Duration (shortest to longest)
+* Audio playback using **Android MediaPlayer**
+* Playback controls:
+
+  * Play / Pause
+  * Next / Previous track
+  * Seek bar with current position and total duration
+* **Offline-first support**:
+  * Track metadata cached locally using SQLDelight
+* Mini Player and Full Player screens
+* Polished dark-themed UI
+* Proper MediaPlayer lifecycle handling
+* Clean **MVVM architecture** with StateFlow & Coroutines
+
+---
+
+## 🛠 Tech Stack
+
+* Kotlin Multiplatform (KMP)
+* Compose Multiplatform (CMP)
+* MVVM architecture
+* Ktor Client
+* SQLDelight
+* Coroutines & StateFlow
+* Koin (DI)
+* Android MediaPlayer
+* Coil (Android)
+
+---
+
+
+## 🌐 API Used
+
+### 🎶 Jamendo API
+
+**Why Jamendo?**
+
+* Free and public music API
+* Provides audio streaming URLs and artwork
+* Suitable for demo and learning purposes
+* Simple integration without OAuth complexity
+
+---
+
+## 🔑 API Configuration
+
+To run the app, you need a **Jamendo client ID**.
+
+### Steps:
+
+1. Visit: [https://www.jamendo.com/start](https://www.jamendo.com/start)
+2. Create a free account
+3. Generate a **client_id**
+4. Add it to your project using Gradle configuration
+
+Example (`gradle.properties`):
+
+```properties
+JAMENDO_CLIENT_ID=your_client_id_here
+```
+
+The client ID is injected at build time and **not hardcoded in source code**.
+
+---
+
+## 🚀 How to Run the App
+
+### Option 1: Android Studio
+
+1. Clone the repository:
+
+   ```bash
+   git clone <your-repo-url>
+   ```
+2. Open in **Android Studio**
+3. Sync Gradle
+4. Select Android configuration
+5. Run on emulator or physical device
+
+---
+
+### Option 2: Install APK
+
+* Download the APK from the repository
+* Install it on an Android device
+
+📁 APK location:
+
+```
+/apk/MusicPlayer-debug.apk
+```
+
+---
+
+
+## 🧠 Assumptions & Design Choices
+
+* Only **10 tracks per API request** to control bandwidth and paging
+* Android is the primary playback platform
+* Focus on robustness, readability, and maintainability
+
+---
+
+## ✅ Assignment Coverage
+
+| Requirement            | Status |
+| ---------------------- | ------ |
+| Kotlin & KMP           | ✅      |
+| MVVM Architecture      | ✅      |
+| API Integration        | ✅      |
+| Ktor Networking        | ✅      |
+| JSON Parsing           | ✅      |
+| MediaPlayer            | ✅      |
+| Loading & Error States | ✅      |
+| Sorting                | ✅      |
+| Offline Caching        | ✅      |
+| Offline Playback       | ✅      |
+| Polished UI            | ✅      |
+
+---
+
