@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <service
-            android:name="com.user.music.audio.AudioService"
+            android:name="com.user.music.player.AudioService"
             android:exported="false" />
 
         <activity
