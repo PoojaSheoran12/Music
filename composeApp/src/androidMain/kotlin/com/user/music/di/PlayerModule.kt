@@ -17,10 +17,20 @@ import org.koin.dsl.module
 //
 //    viewModel { AudioViewModel(get()) }
 //}
+//val audioAndroidModule = module {
+//    single {
+//        AudioPlayer(
+//            context = androidContext()
+//        ).apply {
+//            init(androidContext())
+//        }
+//    }
+//}
 val audioAndroidModule = module {
     single {
-        AudioPlayer().apply {
-            init(androidContext())
-        }
+        AudioPlayer(
+            context = androidContext()
+        )
     }
 }
+

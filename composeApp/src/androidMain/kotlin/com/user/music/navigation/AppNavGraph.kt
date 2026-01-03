@@ -28,7 +28,8 @@ fun AppNavGraph(
         composable(Route.Home.path) {
             HomeRoute(
                 viewModel = homeViewModel,
-                navController = navController
+                navController = navController,
+                audioViewModel = audioViewModel
             )
         }
 

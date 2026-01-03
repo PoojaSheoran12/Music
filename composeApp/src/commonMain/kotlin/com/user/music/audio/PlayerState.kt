@@ -5,5 +5,6 @@ data class PlayerState(
     val currentPosition: Long = 0L,
     val duration: Long = 0L,
     val currentTrackId: String? = null,
-    val error: String? = null
+    val error: String? = null,
+    val currentTrackUrl: String? = null,
 )
