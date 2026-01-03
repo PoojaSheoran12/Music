@@ -72,6 +72,9 @@ kotlin {
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     namespace = "com.user.music"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
@@ -81,6 +84,13 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        buildConfigField(
+            "String",
+            "JAMENDO_CLIENT_ID",
+            "\"37a13b71\""
+        )
+
+
     }
     packaging {
         resources {

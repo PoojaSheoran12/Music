@@ -13,7 +13,6 @@ import org.koin.dsl.module
 
 val homeModule = module {
 
-//    factory { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
 
     single<HomeRepository> { HomeRepositoryImpl(
         get(),

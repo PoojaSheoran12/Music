@@ -8,12 +8,13 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 
 class ApiService(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val clientId: String
 ) {
 
     suspend fun fetchTracks(offset: Int): List<TrackDto> {
         return client.get("https://api.jamendo.com/v3.0/tracks") {
-            parameter("client_id", "37a13b71")
+            parameter("client_id", clientId)
             parameter("offset", offset)
         }.body<TracksResponseDto>().results
     }
