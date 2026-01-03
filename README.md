@@ -92,7 +92,7 @@ The client ID is injected at build time and **not hardcoded in source code**.
 1. Clone the repository:
 
    ```bash
-   git clone <your-repo-url>
+   git clone <https://github.com/PoojaSheoran12/Music.git>
    ```
 2. Open in **Android Studio**
 3. Sync Gradle
